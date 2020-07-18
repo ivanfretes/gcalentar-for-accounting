@@ -5,10 +5,16 @@
     "authors": [
         {
             "name": "Iván Fretes",
-            "email": "hi@ivanfretes.me"
+            "email": "hi@ivanfretes.me",
+            "homepage"  : "https://ivanfretes.me"
         }
     ],
-    "require": {
+    "autoload": {
+        "psr-4":{
+            "App\\": "src/"
+        }
+    },
+    "require" : {
         "php" : ">=7.0",
         "guzzlehttp/guzzle": "^7.0",
         "google/apiclient" : "^2.0"
