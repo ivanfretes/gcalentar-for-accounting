@@ -2,8 +2,6 @@
 
 namespace App;
 
-
-
 class Calendar
 {
 	protected $events;

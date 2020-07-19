@@ -8,12 +8,16 @@ namespace App;
 use Event;
 
 /**
- * Actualiza informacion del calendario
- * Y 
  */
-class Calendar extends Calendar
+class Calendar
 {
+	protected $id;
+	protected $title;
+	protected $create_at;
+	protected $update_at;
 
+	protected $events = [];
+	
 	public function __construct(){
 
 	}
@@ -32,7 +36,7 @@ class Calendar extends Calendar
 
 	}
 
-	
+
 
 
 }
