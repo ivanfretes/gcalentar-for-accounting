@@ -18,5 +18,5 @@ Inicialmente este paquete funciona con Google Calendar
 
 ## Mejoras
 1. Agregar a estos dos calendarios procesos contables
-2. Generar un API
+2. Generar API REST, para consumir balances
 
