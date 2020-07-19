@@ -1,12 +1,9 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
-require __DIR__.'/vendor/autoload.php';
-
-use App\GcalendarForAccounting;
- 
-if (php_sapi_name() != 'cli') {
+/*if (php_sapi_name() != 'cli') {
     throw new Exception('This application must be run on the command line.');
-}
+}*/
 
 /**
  * Returns an authorized API client.
@@ -15,7 +12,7 @@ if (php_sapi_name() != 'cli') {
 function getClient()
 {
     $client = new Google_Client();
-    $client->setApplicationName('Google Calendar For Accounting');
+    $client->setApplicationName('Google Calendar API PHP Quickstart');
     $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
     $client->setAuthConfig('credentials.json');
     $client->setAccessType('offline');
@@ -67,9 +64,9 @@ $client = getClient();
 $service = new Google_Service_Calendar($client);
 
 // Print the next 10 events on the user's calendar.
-$calendarId = 'm1n00r9c9od4s21iqb9n2evk6s@group.calendar.google.com';
+$calendarId = 'primary';
 $optParams = array(
-  'maxResults' => 10,
+  'maxResults' => 3,
   'orderBy' => 'startTime',
   'singleEvents' => true,
   'timeMin' => date('c'),
@@ -86,9 +83,11 @@ if (empty($events)) {
         if (empty($start)) {
             $start = $event->start->date;
         }
+
+        echo "\n\n\n------------------------------------------------------\n";
+        //echo json_encode($event);
+        var_dump($event);
+
         printf("%s (%s)\n", $event->getSummary(), $start);
     }
 }
-
-
-
