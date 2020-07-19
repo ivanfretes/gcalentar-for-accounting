@@ -1,11 +1,11 @@
 <?php
 
-namespace
+namespace App;
 
 /**
  * 
  */
-class ClassName extends AnotherClass
+class Auth
 {
 	
 	/**
@@ -14,7 +14,7 @@ class ClassName extends AnotherClass
 	 * @param Google_client $client
  	 * @return Google_Client the authorized client object
 	 */
-	public static get_authorized_client($client){
+	public static get_local_authorized_client($client){
 	    $client->setApplicationName('Google Calendar API PHP Quickstart');
 	    $client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
 	    $client->setAuthConfig('credentials.json');
@@ -59,6 +59,23 @@ class ClassName extends AnotherClass
 	        file_put_contents($tokenPath, json_encode($client->getAccessToken()));
 	    }
 	    return $client;
+	}
+
+
+	/**
+	 * Connect the cache and gets 
+	 */
+	public static function get_authorized_client(){
+		// Todo
+	}
+
+
+	/**
+	 * @param Google_client $client
+	 * 
+	 */
+	public static function set_authorized_client(){
+		//
 	}
 }
 
