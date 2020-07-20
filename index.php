@@ -2,8 +2,8 @@
 require __DIR__ . '/vendor/autoload.php';
 
 
-define('ENTRY_CALENDAR_NAME', 'MIS_COBROS');
-define('EXIT_CALENDAR_NAME', 'MIS_PAGOS');
+define('ENTRY_CALENDAR_NAME', 'COBRADO');
+define('EXIT_CALENDAR_NAME', 'PAGADO');
 
 // Listado de calendarios configurados
 $_calendars = [];
@@ -94,7 +94,7 @@ $balance = $total_entries - $total_exits;
 printf("Total Entries: %s \nTotal exits: %s\n-----------\nBalance:%s\n\n", 
     $total_entries, 
     $total_exits, 
-    $balance);
+    $balance );
 
 
 

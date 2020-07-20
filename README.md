@@ -6,6 +6,8 @@ Inicialmente este paquete funciona con Google Calendar
 2. Pantalla para completar los 2 calendarios de entrada y salida
 3. Pantalla de configuraciones de los calendarios
 
+### Exmaples
+![balance console](./images/balance-console.png)
 
 ### Doing
 1. Almacenado en DB de los eventos
@@ -14,7 +16,7 @@ Inicialmente este paquete funciona con Google Calendar
 4. Almacenar en cache eventos y datos del usuario
 
 
-### Mejoras
+### Todo
 1. Construir API basica
 2. Validar, que solo exista un valor que sea entendido como monto, evitar duplicacion en la misma oracion
 3. Obtener la moneda
