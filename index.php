@@ -2,8 +2,8 @@
 require __DIR__ . '/vendor/autoload.php';
 
 
-define('ENTRY_CALENDAR_NAME', 'INGRESOS');
-define('EXIT_CALENDAR_NAME', 'EGRESOS');
+define('ENTRY_CALENDAR_NAME', 'MIS_COBROS');
+define('EXIT_CALENDAR_NAME', 'MIS_PAGOS');
 
 // Listado de calendarios configurados
 $_calendars = [];
@@ -99,7 +99,7 @@ printf("Total Entries: %s \nTotal exits: %s\n-----------\nBalance:%s\n\n",
 
 
 /**
- * Retorna una cantidad numerica si existe en la oracion
+ * Retorna una cantidad numerica si existe en la oracion, y la moneda
  */
 function extract_amount($string){
     $words = preg_replace("/\./", '', $string);
