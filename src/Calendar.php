@@ -1,9 +1,6 @@
 <?php
 
-
-
 namespace App;
-
 
 use Event;
 
@@ -12,9 +9,9 @@ use Event;
 class Calendar
 {
 	protected $id;
-	protected $title;
-	protected $create_at;
-	protected $update_at;
+	protected $name;
+	//protected $create_at;
+	//protected $update_at;
 
 	protected $events = [];
 	
@@ -23,11 +20,14 @@ class Calendar
 	}
 
 
-	public function add_calendar(){
-
+	public static function add_calendar(){
+		
 	}
 
 
+	/**
+	 * Retorna los eventos de un calendario
+	 */
 	public function get_all_events(){
 
 	}
@@ -35,6 +35,8 @@ class Calendar
 	public function get_sum_of_all_events(){
 
 	}
+
+
 
 
 

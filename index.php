@@ -2,40 +2,90 @@
 require __DIR__ . '/vendor/autoload.php';
 
 
+define('ENTRY_CALENDAR_NAME', 'INGRESOS');
+define('EXIT_CALENDAR_NAME', 'EGRESOS');
 
-//$client = new Google_Client()
+// Listado de calendarios configurados
+$_calendars = [];
+$_events = [];
+
+
+// Retorna cliente autorizado
 $client = \App\Auth::get_authorized_client();
 
 // Get the API client and construct the service object.
 $service = new Google_Service_Calendar($client);
 
-// Print the next 10 events on the user's calendar.
-$calendarId = 'primary';
 $optParams = array(
   'maxResults' => 3,
   'orderBy' => 'startTime',
   'singleEvents' => true,
+  'showDeleted' => false,
   'timeMin' => date('c'),
 );
 
 
-$results = $service->events->listEvents($calendarId, $optParams);
-$events = $results->getItems();
+// Listado de calendarios
+$calendarList = $service->calendarList->listCalendarList();
 
-if (empty($events)) {
-    print "No upcoming events found.\n";
-} else {
-    print "Upcoming events:\n";
-    foreach ($events as $event) {
-        $start = $event->start->dateTime;
-        if (empty($start)) {
-            $start = $event->start->date;
-        }
+foreach ($calendarList->getItems() as $calendarListEntry) {
 
-        echo "\n\n\n------------------------------------------------------\n";
-        echo json_encode($event);
-        //var_dump($event);
-
-        printf("%s (%s)\n", $event->getSummary(), $start);
+    if ($calendarListEntry->getSummary() == ENTRY_CALENDAR_NAME || 
+        $calendarListEntry->getSummary() == EXIT_CALENDAR_NAME){
+        
+            array_push($_calendars, (object) [
+                'id' => $calendarListEntry->getId(),
+                'name' => $calendarListEntry->getSummary(),
+                'events' => []
+            ]);
     }
+}
+
+
+// Se agrega el monto
+foreach ($_calendars as $_calendar) {
+
+    $events = $service->events->listEvents($_calendar->id);
+
+    if (empty($events)) {
+        print "No upcoming events found.\n";
+    } else {
+        foreach ($events as $event) {
+            $start = $event->start->dateTime;
+            if (empty($start)) {
+                $start = $event->start->date;
+            }
+
+            $monto = extract_amount($event->getSummary()); 
+            
+            $_event = (object) [
+                'id' => $event->id,
+                'created_at' => $event->created,
+                'updated_at' => $event->updated,
+                'description' => $event->description,
+                'date' => $event->date,
+                'dateTime' => $event->dateTime,
+                'dateTime' => $event->dateTime,
+                'timezone' => $event->dateTime,
+            ]
+        }
+    }
+
+}
+
+
+/**
+ * 
+ */
+function extract_amount($string){
+    $words = preg_replace("/\./", '', $string);
+    $words = explode(" ", $words);
+
+    foreach ($words as $index => $word) {
+        if (is_numeric($word)){
+            return $word;
+        }
+    }
+
+    return NULL;
 }

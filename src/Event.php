@@ -7,15 +7,17 @@ namespace App;
  */
 class Event
 {
-	protected $calendar_id;
 	protected $id;
 	protected $name;
 	protected $created_at;
 	protected $update_at;
 	protected $description;
-	protected $day; // Is a date
-	protected $hour; // Is a Time
-	protected $day_timestamp; 
+	protected $date; // Is a day
+	protected $hour; // Is a day hours
+	protected $datetime; // Is a datetime
+	protected $calendar_id;
+	protected $currency = NULL;
+	protected $timezone;
 
 	
 	function __construct(argument)
@@ -26,6 +28,10 @@ class Event
 
 	public function get_event(){
 
+	}
+
+	public static function get_events_by_calendar(){
+		
 	}
 
 }

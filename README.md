@@ -15,8 +15,15 @@ Inicialmente este paquete funciona con Google Calendar
 
 
 
+### Proceso
+1. Registro
+2. Completar con el nombre de los 2 calendarios a vincular, uno para egresos el otro para ingresos
+3. 
 
-## Mejoras
+
+### Mejoras
 1. Agregar a estos dos calendarios procesos contables
-2. Generar API REST, para consumir balances
-
+2. Generar API, para consumir balances
+3. Validar, si existe mas de 1 numero en la oracion, elegir el numero que tenga la moneda, despues
+4. Posibilidad de multimoneda
+5. Posibilidad de agregar un integrante, indicando, que el mismo formo parte de la transaccion
