@@ -10,10 +10,17 @@ class Calendar
 {
 	protected $id;
 	protected $name;
-	//protected $create_at;
-	//protected $update_at;
+	protected $total_amount;
+	protected $type_calendar = [
+		'ENTRY', 'EXIT'
+	];
 
+	/**
+	 * @var 
+	 * List of events of a calendario
+	 */ 
 	protected $events = [];
+
 	
 	public function __construct(){
 

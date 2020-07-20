@@ -27,3 +27,6 @@ Inicialmente este paquete funciona con Google Calendar
 3. Validar, si existe mas de 1 numero en la oracion, elegir el numero que tenga la moneda, despues
 4. Posibilidad de multimoneda
 5. Posibilidad de agregar un integrante, indicando, que el mismo formo parte de la transaccion
+6. Posibilidad de agregar multiples creadores
+7. Limitar a los dias del mes
+8. Poder seleccionar un mes, para aplicar los gastos

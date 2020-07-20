@@ -14,10 +14,11 @@ class Event
 	protected $description;
 	protected $date; // Is a day
 	protected $hour; // Is a day hours
-	protected $datetime; // Is a datetime
+	protected $dateTime; // Is a datetime of the day
 	protected $calendar_id;
 	protected $currency = NULL;
-	protected $timezone;
+	protected $timeZone;
+	protected $status;
 
 	
 	function __construct()

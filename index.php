@@ -7,7 +7,6 @@ define('EXIT_CALENDAR_NAME', 'EGRESOS');
 
 // Listado de calendarios configurados
 $_calendars = [];
-$_events = [];
 
 
 // Retorna cliente autorizado
@@ -17,7 +16,6 @@ $client = \App\Auth::get_authorized_client();
 $service = new Google_Service_Calendar($client);
 
 $optParams = array(
-  'maxResults' => 3,
   'orderBy' => 'startTime',
   'singleEvents' => true,
   'showDeleted' => false,
@@ -36,42 +34,68 @@ foreach ($calendarList->getItems() as $calendarListEntry) {
             array_push($_calendars, (object) [
                 'id' => $calendarListEntry->getId(),
                 'name' => $calendarListEntry->getSummary(),
-                'events' => []
+                'events' => [],
+                'total_amounts' => 0
             ]);
     }
 }
-
 
 // Se agrega el monto
 foreach ($_calendars as $_calendar) {
 
     $events = $service->events->listEvents($_calendar->id);
+    $total_amounts = 0;
 
     if (empty($events)) {
         print "No upcoming events found.\n";
     } else {
         foreach ($events as $event) {
-            $start = $event->start->dateTime;
-            if (empty($start)) {
-                $start = $event->start->date;
-            }
 
-            $monto = extract_amount($event->getSummary()); 
-            if ($monto != NULL){
+            $amount = extract_amount($event->getSummary()); 
+            if ($amount != NULL){
                 $_event = (object) [
                     'id' => $event->id,
                     'created_at' => $event->created,
                     'updated_at' => $event->updated,
                     'description' => $event->description,
-                    'date' => $event->date,
-                    'dateTime' => $event->dateTime,
-                    'timezone' => $event->dateTime,
+                    'date' => $event->start->date,
+                    'dateTime' => $event->start->dateTime,
+                    'timeZone' => $event->timeZone,
+                    'status' => $event->status,
+                    'calendar_id' => $_calendar->id,
+                    'amount' => $amount
                 ];
+
+                $total_amounts += $amount;
+                $_calendar->total_amounts = $total_amounts;
+
+                array_push(
+                    $_calendar->events, 
+                    $_event
+                );
             }
         }
     }
-
 }
+
+
+$total_exits = 0;
+$total_entries = 0;
+
+foreach ($_calendars as $_calendar) {
+    if ($_calendar->name == ENTRY_CALENDAR_NAME)
+        $total_entries = $_calendar->total_amounts;
+    else 
+        $total_exits = $_calendar->total_amounts;
+}
+
+$balance = $total_entries - $total_exits;
+
+printf("Total Entries: %s \nTotal exits: %s\n-----------\nBalance:%s\n\n", 
+    $total_entries, 
+    $total_exits, 
+    $balance);
+
 
 
 /**
@@ -89,3 +113,5 @@ function extract_amount($string){
 
     return NULL;
 }
+
+
