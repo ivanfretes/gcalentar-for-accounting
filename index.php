@@ -57,17 +57,17 @@ foreach ($_calendars as $_calendar) {
             }
 
             $monto = extract_amount($event->getSummary()); 
-            
-            $_event = (object) [
-                'id' => $event->id,
-                'created_at' => $event->created,
-                'updated_at' => $event->updated,
-                'description' => $event->description,
-                'date' => $event->date,
-                'dateTime' => $event->dateTime,
-                'dateTime' => $event->dateTime,
-                'timezone' => $event->dateTime,
-            ]
+            if ($monto != NULL){
+                $_event = (object) [
+                    'id' => $event->id,
+                    'created_at' => $event->created,
+                    'updated_at' => $event->updated,
+                    'description' => $event->description,
+                    'date' => $event->date,
+                    'dateTime' => $event->dateTime,
+                    'timezone' => $event->dateTime,
+                ];
+            }
         }
     }
 
@@ -75,7 +75,7 @@ foreach ($_calendars as $_calendar) {
 
 
 /**
- * 
+ * Retorna una cantidad numerica si existe en la oracion
  */
 function extract_amount($string){
     $words = preg_replace("/\./", '', $string);
